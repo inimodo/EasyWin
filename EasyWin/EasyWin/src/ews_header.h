@@ -12,6 +12,8 @@
 #include<windows.h>
 #include<iostream>
 
+#define TOCLIENTWIDTH(x) (ews::win::i_Width-16)
+#define TOCLIENTHEIGHT(x) (ews::win::i_Height-39)
 
 //EasyWin Socket for C++ 
 // Markus Kotar @ UCPSystems.com 2019
@@ -33,14 +35,14 @@ namespace ews {
 	extern unsigned char __fastcall update();
 	void __cdecl close();
 
-	extern void __fastcall SetScreenBuffer(DWORD * dw_ColorStream);
+	extern void  SetScreenBuffer(DWORD * dw_ColorStream);
 
 	namespace win {
 
-		const static DWORD dw_ExStyle = 0;
+		const static DWORD dw_ExStyle = 0;//WS_EX_CLIENTEDGE;
 		const static wchar_t * c_WinClassName = L"WINCLASSEWS";
 		const static wchar_t * c_WinTitle = L"Default Title";
-		const static DWORD  dw_Style = WS_OVERLAPPEDWINDOW;
+		const static DWORD  dw_Style = (WS_OVERLAPPED  | WS_SYSMENU | WS_MINIMIZEBOX );
 		const static int i_XPos = CW_USEDEFAULT;
 		const static int i_YPos = CW_USEDEFAULT;
 		const static int i_Width = 1600;
