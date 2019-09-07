@@ -74,11 +74,11 @@ long __stdcall WindowProc(HWND hd_Handle, UINT msg_Message, WPARAM wParam, LPARA
 	
 	return DefWindowProcW(hd_Handle, msg_Message, wParam, lParam);
 }
-void  ews::SetScreenBuffer(DWORD * dw_ColorStream) {
-	HBITMAP bmp_Bitmap = CreateBitmap(TOCLIENTWIDTH(ews::win::i_Width), TOCLIENTHEIGHT(ews::win::i_Height),1,8*4,(const void *) dw_ColorStream);
+void  ews::SetScreenBuffer(DWORD * dw_ColorStream, int i_dWidth, int di_Height) {
+	HBITMAP bmp_Bitmap = CreateBitmap(i_dWidth, di_Height,1,8*4,(const void *) dw_ColorStream);
 	HDC hdc_TempHdc = CreateCompatibleDC(ews::win::hdc_WindowHdc);
 	SelectObject(hdc_TempHdc, bmp_Bitmap);
-	BitBlt(ews::win::hdc_WindowHdc,0,0, TOCLIENTWIDTH(ews::win::i_Width), TOCLIENTHEIGHT(ews::win::i_Height), hdc_TempHdc,0,0,SRCCOPY);
+	BitBlt(ews::win::hdc_WindowHdc,0,0, i_dWidth, di_Height, hdc_TempHdc,0,0,SRCCOPY);
 	DeleteObject(bmp_Bitmap);
 	DeleteDC(hdc_TempHdc);
 }

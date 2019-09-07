@@ -24,20 +24,20 @@ extern int __stdcall wWinMain(HINSTANCE h_Instance, HINSTANCE, PWSTR c_pCmdLine,
 
 /* Premade Functions 
 
-unsigned char __fastcall ews::win::main() { return 1; } //Gets Calledd once before Window Creation
-unsigned char __fastcall ews::win::update() { return 1; } // Gets Called every "WindowProc" Call
-void __cdecl ews::win::close() { } // Gets Called before window closing
+unsigned char __EWS ews::win::main() { return 1; } //Gets Calledd once before Window Creation
+unsigned char __EWS ews::win::update() { return 1; } // Gets Called every "WindowProc" Call
+void __EWS ews::win::close() { } // Gets Called before window closing
 
 */
-
-extern unsigned char __fastcall main();
-extern unsigned char __fastcall update();
-void __cdecl close();
+#define __EWS __cdecl
+extern unsigned char __EWS main();
+extern unsigned char __EWS update();
+void __EWS close();
 
 namespace ews {
 
 
-	extern void  SetScreenBuffer(DWORD * dw_ColorStream);
+	extern void  SetScreenBuffer(DWORD * dw_ColorStream,int i_Width,int i_Height);
 
 	namespace win {
 
@@ -73,7 +73,6 @@ namespace ews {
 			BOOL __stdcall Destroy();
 			BOOL __stdcall Rename(const wchar_t* c_ConsoleTitle);
 
-			void SetColor(const int i_HexColor);
 		private:
 			BOOL __stdcall AllocC();
 		};

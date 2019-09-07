@@ -7,29 +7,30 @@ console::ews_console o_console;
 
 DWORD * dw_pTestImage;
 
-unsigned char __fastcall ews::main() { 
+unsigned char __cdecl main() {
 	o_console.Create(ews::win::c_WinTitle);
 	printf("Created a Console!\n");
-
-	dw_pTestImage = (DWORD*)malloc(sizeof(DWORD)*TOCLIENTWIDTH(ews::win::i_Width)*TOCLIENTHEIGHT(ews::win::i_Height));
-	for (int i = 0, d = 0,x=0; i < TOCLIENTWIDTH(ews::win::i_Width)*TOCLIENTHEIGHT(ews::win::i_Height); i++, d++)
+#define W 100
+#define H 100
+	dw_pTestImage = (DWORD*)malloc(sizeof(DWORD)*W*H);
+	for (int i = 0, d = 0,x=0; i < H*W; i++, d++)
 	{
-		if(d % TOCLIENTWIDTH(ews::win::i_Width) == 0)
+		if(d % W == 0)
 		{
 			d = 0;
 			x++;
 		}
-		dw_pTestImage[i] = RGB((int)((float)(i% TOCLIENTWIDTH(ews::win::i_Width) / (float)TOCLIENTWIDTH(ews::win::i_Width))* 255.f), (int)((float)(x% TOCLIENTHEIGHT(ews::win::i_Height) / (float)TOCLIENTHEIGHT(ews::win::i_Height))* 255.f),255 );
+		dw_pTestImage[i] = RGB((int)((float)(i% W / (float)W)* 255.f), (int)((float)(x% H / (float)H)* 255.f),255 );
 	}
 	return 1; 
 } 
-unsigned char __fastcall ews::update() { 
+unsigned char __cdecl update() {
 	printf("Update!\n");
 
-	ews::SetScreenBuffer(dw_pTestImage);
+	ews::SetScreenBuffer(dw_pTestImage,W,H);
 	return 1; 
 }
-void __cdecl ews::close() { 
+void __cdecl close() { 
 	printf("Closing!\n");
 	system("pause");
 	o_console.Destroy();
