@@ -5,7 +5,7 @@ long __stdcall WindowProc(HWND hd_Handle, UINT msg_Message, WPARAM wParam, LPARA
 
 int __stdcall wWinMain(HINSTANCE h_Instance, HINSTANCE, PWSTR c_pCmdLine, int i_CmdShow)
 {
-	if (ews::main() == NULL) 
+	if (main() == NULL) 
 	{
 		return NULL;
 	}
@@ -20,7 +20,7 @@ int __stdcall wWinMain(HINSTANCE h_Instance, HINSTANCE, PWSTR c_pCmdLine, int i_
 	ews::win::hdc_WindowHdc = GetDC(ews::win::hd_WindowHandle);
 	while (GetMessage(&ews::win::msg_WindowMessage, NULL, 0, 0)>0)
 	{
-		if (ews::update() == NULL)
+		if (update() == NULL)
 		{
 			return NULL;
 		}
@@ -28,7 +28,8 @@ int __stdcall wWinMain(HINSTANCE h_Instance, HINSTANCE, PWSTR c_pCmdLine, int i_
 		DispatchMessage(&ews::win::msg_WindowMessage);
 	}
 
-	ews::close();
+	close();
+
 	ReleaseDC(NULL,ews::win::hdc_WindowHdc);
 	return NULL;
 }
@@ -71,8 +72,7 @@ long __stdcall WindowProc(HWND hd_Handle, UINT msg_Message, WPARAM wParam, LPARA
 		return 0;
 	}
 	
-	DefWindowProcW(hd_Handle, msg_Message, wParam, lParam);
-
+	return DefWindowProcW(hd_Handle, msg_Message, wParam, lParam);
 }
 void  ews::SetScreenBuffer(DWORD * dw_ColorStream) {
 	HBITMAP bmp_Bitmap = CreateBitmap(TOCLIENTWIDTH(ews::win::i_Width), TOCLIENTHEIGHT(ews::win::i_Height),1,8*4,(const void *) dw_ColorStream);

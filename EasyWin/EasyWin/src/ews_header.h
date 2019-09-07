@@ -29,17 +29,19 @@ unsigned char __fastcall ews::win::update() { return 1; } // Gets Called every "
 void __cdecl ews::win::close() { } // Gets Called before window closing
 
 */
+
+extern unsigned char __fastcall main();
+extern unsigned char __fastcall update();
+void __cdecl close();
+
 namespace ews {
 
-	extern unsigned char __fastcall main();
-	extern unsigned char __fastcall update();
-	void __cdecl close();
 
 	extern void  SetScreenBuffer(DWORD * dw_ColorStream);
 
 	namespace win {
 
-		const static DWORD dw_ExStyle = 0;//WS_EX_CLIENTEDGE;
+		const static DWORD dw_ExStyle = 0;
 		const static wchar_t * c_WinClassName = L"WINCLASSEWS";
 		const static wchar_t * c_WinTitle = L"Default Title";
 		const static DWORD  dw_Style = (WS_OVERLAPPED  | WS_SYSMENU | WS_MINIMIZEBOX );
